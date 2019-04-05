@@ -29,7 +29,7 @@ router.post('/register', async ({ body: newUser }, res) => {
   try {
     newUser.password = bcrypt.hashSync(newUser.password, 10);
     const [id] = await userDB.add(newUser);
-    const [user] = await userDB.findById(id);
+    const [{password, ...user}] = await userDB.findById(id);
     res.status(201).json(user);
   } catch (error) {
     debug(error);
