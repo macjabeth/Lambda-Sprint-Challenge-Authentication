@@ -1,15 +1,19 @@
-const express = require('express');
-const cors = require('cors');
+const logger = require('../middleware/logger');
+const configureRoutes = require('../routes');
+const compression = require('compression');
 const helmet = require('helmet');
-
-const configureRoutes = require('../config/routes.js');
-
+const cors = require('cors');
+const express = require('express');
 const server = express();
 
+// Middleware
+server.use(express.json());
+server.use(compression());
 server.use(helmet());
 server.use(cors());
-server.use(express.json());
+server.use(logger());
 
+// Routes
 configureRoutes(server);
 
 module.exports = server;
