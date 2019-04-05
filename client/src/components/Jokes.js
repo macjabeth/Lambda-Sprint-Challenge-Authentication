@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchJokes } from '../actions';
 
 const Jokes = ({ fetchJokes, jokes }) => {
-  useEffect(fetchJokes);
+  useEffect(() => { fetchJokes() }, []);
 
   return (
     <Fragment>
