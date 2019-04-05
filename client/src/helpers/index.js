@@ -5,7 +5,7 @@ export const serverHandshake = (auth) => {
 
   defaults.baseURL = 'http://penguin.linux.test:2000/api';
 
-  defaults.headers.authorization = auth && localStorage.getItem('token');
+  if (auth) defaults.headers = { authorization: localStorage.getItem('token') };
 
   return axios.create(defaults);
 };
