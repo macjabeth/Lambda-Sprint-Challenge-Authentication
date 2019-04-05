@@ -31,8 +31,8 @@ const Register = ({ history, authLogin, authSignup, error }) => {
     <Fragment>
       {error && <h6>{error}</h6>}
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Username" value={username} onChange={updateUsername} />
-        <input type="password" placeholder="Password" value={password} onChange={updatePassword} />
+        <input type="text" placeholder="Username" value={username} onChange={updateUsername} required />
+        <input type="password" placeholder="Password" value={password} onChange={updatePassword} required />
         <div>
           <input type="submit" value="Submit" />
           {registering ? (
