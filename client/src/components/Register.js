@@ -23,8 +23,9 @@ const Register = ({ history, authLogin, authSignup }) => {
       await authLogin({ username, password });
       history.push('/jokes');
     } catch (error) {
-      setError(error.response.data.message);
-      setTimeout(() => setError(null), 3000);
+      console.error(error.message);
+      // setError(error.response.data.message);
+      // setTimeout(() => setError(null), 3000);
       setUsername(''); setPassword('');
     }
   };
