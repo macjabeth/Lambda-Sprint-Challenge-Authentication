@@ -5,13 +5,12 @@ import { authLogin, authSignup } from '../actions';
 import { useInput } from '../hooks';
 import '../styles/register.css';
 
-const Register = ({ history, authLogin, authSignup }) => {
+const Register = ({ history, authLogin, authSignup, error }) => {
   if (localStorage.getItem('token')) return <Redirect to="/" />;
 
   const [username, setUsername, updateUsername] = useInput();
   const [password, setPassword, updatePassword] = useInput();
   const [registering, setRegistering] = useState(false);
-  const [error, setError] = useState(null);
 
   const formToggle = () => setRegistering(!registering);
 
@@ -22,11 +21,9 @@ const Register = ({ history, authLogin, authSignup }) => {
       if (registering) await authSignup({ username, password });
       await authLogin({ username, password });
       history.push('/jokes');
-    } catch (error) {
-      console.error(error.message);
-      // setError(error.response.data.message);
-      // setTimeout(() => setError(null), 3000);
-      setUsername(''); setPassword('');
+    } catch {
+      setUsername('');
+      setPassword('');
     }
   };
 
@@ -53,4 +50,8 @@ const Register = ({ history, authLogin, authSignup }) => {
   );
 };
 
-export default connect(null, { authLogin, authSignup })(Register);
+const mapStateToProps = state => ({
+  error: state.error
+});
+
+export default connect(mapStateToProps, { authLogin, authSignup })(Register);
